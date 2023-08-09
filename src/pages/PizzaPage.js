@@ -1,6 +1,7 @@
 import React from 'react'
 import Deneme from '../components/Deneme'
 
+
 const PizzaPage = () => {
     return (
         <div>
@@ -9,7 +10,7 @@ const PizzaPage = () => {
             </div>
 
             <div>
-                <p>asdas</p>
+                <p>DenemeCla</p>
             </div>
 
         </div>
@@ -17,4 +18,4 @@ const PizzaPage = () => {
     )
 }
 
-export default PizzaPage
+export default PizzaPage;
