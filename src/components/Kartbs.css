@@ -1,0 +1,18 @@
+.Kart-satir {
+    margin-top: 0px;
+    margin-left: 5px;
+    margin-right: 5px;
+    /* align-content: center; */
+    /* justify-self: stretch; */
+    /* justify-items: center; */
+    /* justify-content: space-between; */
+}
+
+.bosluk{
+    align-items: center;
+    margin-right: 8px;
+}
+
+.colcol{
+    align-items: center;
+}
