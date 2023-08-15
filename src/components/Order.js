@@ -1,131 +1,266 @@
 import React from 'react'
-import { Card, Col, Form, Row } from 'react-bootstrap'
+import { Card, Col, Form, Row, Alert } from 'react-bootstrap'
 
-function Order() {
-    const toppings = [
-        { name: "Foo", id: "foo" },
-        { name: "Bar", id: "bar" },
-        { name: "Baz", id: "baz" },
-        { name: "Foo", id: "foo" },
-        { name: "Bar", id: "bar" },
-        { name: "Baz", id: "baz" }
+function Order(props) {
+    const { formik } = props;
+    const size = [
+        {
+            label: "Small",
+            description: "10''",
+            value: "small",
+        },
+        {
+            label: "Medium",
+            description: "12''",
+            value: "medium",
+        },
+        {
+            label: "Large",
+            description: "14''",
+            value: "large",
+        },
+        {
+            label: "X-Large",
+            description: "16''",
+            value: "xlarge",
+        },
+    ];
+
+    const crust = [
+        {
+            label: "BROOKLYN STYLE",
+            description: "Hand stretched to be big, thin and perfectly foldable.",
+            value: "brooklynstyle",
+        },
+        {
+            label: "HAND TOSSED",
+            description: "Garlic-seasoned crust with a rich, buttery taste.",
+            value: "handtossed",
+        },
+        {
+            label: "CRUNCHY THIN CRUST",
+            description:
+                "Thin enough for the optimum crispy to crunchy ratio and square cut to be perfectly sharable.",
+            value: "crunchythincrust",
+        },
+    ];
+    const meat = [
+        {
+            label: "Beef",
+            value: "beef",
+        },
+        {
+            label: "Salami",
+            value: "salami",
+        },
+        {
+            label: "Pepperoni",
+            value: "pepperoni",
+        },
+        {
+            label: "Italian Sausage",
+            value: "Italiansausage",
+        },
+        {
+            label: "Premium Chicken",
+            value: "Premiumchicken",
+        },
+    ];
+    const nonmeat = [
+        {
+            label: "Hot Buffalo Sauce",
+            value: "hotbuffalosauce",
+        },
+        {
+            label: "Jalapeno Peppers",
+            value: "jalapenopeppers",
+        },
+        {
+            label: "Onions",
+            value: "onions",
+        },
+        {
+            label: "Banana Peppers",
+            value: "bananapeppers",
+        },
+        {
+            label: "Diced Tomatoes",
+            value: "dicedtomatoes",
+        },
     ];
     return (
         <React.Fragment>
             <Card>
                 <Card.Body>
-                    <Card.Title>
-                        Size & Crust
-                    </Card.Title>
-                    <Form>
-                        <Form.Group className='py-3'>
-                            <Row>
+                    <Card.Title>Size & Crust</Card.Title>
+                    <Form.Group className="py-3">
+                        <Row>
+                            {size.map((d) => (
                                 <Col md={6}>
-                                    <div className='mb-3'>
+                                    <div className="mb-3">
                                         <Form.Check
-                                            name="pizza size"
                                             type="radio"
-                                            id={`small`}
-                                            label={`small`}
+                                            label={d.label}
+                                            value={d.value}
+                                            name="size"
+                                            onChange={formik.handleChange}
+                                            isInvalid={formik.errors.size && formik.touched.size}
                                         />
                                     </div>
                                 </Col>
-                                <Col md={6}>
-                                    <div className='mb-3'>
-                                        <Form.Check
-                                            name="pizza size"
-                                            type="radio"
-                                            id={`medium`}
-                                            label={`medium`}
-                                        />
-                                    </div>
-                                </Col>
-                                <Col md={6}>
-                                    <div className='mb-3'>
-                                        <Form.Check
-                                            name="pizza size"
-                                            type="radio"
-                                            id={`bigger`}
-                                            label={`bigger`}
-                                        />
-                                    </div>
-                                </Col>
-                                <Col md={6}>
-                                    <div className='mb-3'>
-                                        <Form.Check
-                                            name="pizza size"
-                                            type="radio"
-                                            id={`N`}
-                                            label={`N`}
-                                        />
-                                    </div>
-                                </Col>
-                            </Row>
-                        </Form.Group>
-                    </Form>
+                            ))}
+                            {formik.errors.size && formik.touched.size ? (
+                                <Alert variant="danger">{formik.errors.size}</Alert>
+                            ) : null}
+                        </Row>
+                    </Form.Group>
+
                     <hr></hr>
+
+                    <Form.Group className="py-3">
+                        <Row>
+                            {crust.map((d) => (
+                                <Col md={12}>
+                                    <div className="mb-3">
+                                        <Form.Check
+                                            type="radio"
+                                            label={d.label}
+                                            value={d.value}
+                                            name="crust"
+                                            onChange={formik.handleChange}
+                                            isInvalid={formik.errors.crust && formik.touched.crust}
+                                        />
+                                        <small className="px-4">{d.description}</small>
+                                    </div>
+                                </Col>
+                            ))}
+                            {formik.errors.crust && formik.touched.crust ? (
+                                <Alert variant="danger">{formik.errors.crust}</Alert>
+                            ) : null}
+                        </Row>
+                    </Form.Group>
                 </Card.Body>
             </Card>
             {/* Chesee and Sauce */}
             <Row>
-                <Col>
-                    <Card className='my-3'>
+                <Col md={6}>
+                    <Card className="my-2">
                         <Card.Body>
-                            <Card.Title style={{ display: 'flex' }}>
+                            <Card.Title style={{ display: "flex" }}>
                                 Cheese
                                 <Form.Check
-                                    className='mx-2'
-                                    type='checkbox'
-                                    id={`default-`}
+                                    type="checkbox"
+                                    className="mx-2"
+                                    name="cheese.includes"
+                                    onChange={formik.handleChange}
                                 />
                             </Card.Title>
-                            <Form.Select>
-                                <option value="light">Light</option>
-                                <option value="narmal">Normal</option>
-                                <option value="extra">Extra</option>
-                            </Form.Select>
+                            {formik.values.cheese.includes ? (
+                                <Form.Select
+                                    name="cheese.value"
+                                    onChange={formik.handleChange}
+                                    className="my-2"
+                                >
+                                    <option value="normal">Normal</option>
+                                    <option value="light">Light</option>
+                                    <option value="extra">Extra</option>
+                                </Form.Select>
+                            ) : (
+                                false
+                            )}
                         </Card.Body>
                     </Card>
                 </Col>
-                <Col>
-                    <Card className='my-3'>
+                <Col md={6}>
+                    <Card className="my-2">
                         <Card.Body>
-                            <Card.Title style={{ display: 'flex' }}>
+                            <Card.Title style={{ display: "flex" }}>
                                 Sauce
                                 <Form.Check
-                                    className='mx-2'
-                                    type='checkbox'
-                                    id={`default-`}
+                                    type="checkbox"
+                                    className="mx-2"
+                                    name="sauce.includes"
+                                    onChange={formik.handleChange}
                                 />
                             </Card.Title>
-                            <Form.Select>
-                                <option value="ranch">Ranch</option>
-                                <option value="barbecue">Barbecue</option>
-                                <option value="tomatoSauce">Tomato Sauce</option>
-                            </Form.Select>
+
+                            {formik.values.sauce.includes ? (
+                                <Form.Select
+                                    className="my-2"
+                                    name="sauce.value"
+                                    onChange={formik.handleChange}
+                                >
+                                    <option value="robustInspiredTomatoSauce">
+                                        Robust Inspired Tomato Sauce
+                                    </option>
+                                    <option value="ranch">Ranch</option>
+                                </Form.Select>
+                            ) : (
+                                false
+                            )}
                         </Card.Body>
                     </Card>
                 </Col>
             </Row>
-            {/* Toppings */}
-            <Card className='my-3'>
+            {/* Toppings Meat*/}
+            <Card className="my-2">
                 <Card.Body>
-                    <Card.Title style={{ display: 'flex' }}>Topping - Meat</Card.Title>
-                    <Row className='mt-3'>
-                        {toppings.map((top, index) => (
-                            <Col md={3}>
+                    <Card.Title style={{ display: "flex" }}>Topping - Meat</Card.Title>
+                    <Row className="mt-4">
+                        {meat.map((d) => (
+                            <Col>
                                 <Form.Check
-                                    key={index}
-                                    className='mx-2'
-                                    type='checkbox'
-                                    id={`${top.id}`}
-                                    label={`${top.name}`}
+                                    type="checkbox"
+                                    className="mx-2"
+                                    name="toppingMeat"
+                                    value={d.value}
+                                    label={d.label}
+                                    onChange={formik.handleChange}
                                 />
                             </Col>
                         ))}
                     </Row>
                 </Card.Body>
             </Card>
+            <Card className="my-2">
+                <Card.Body>
+                    <Card.Title style={{ display: "flex" }}>
+                        Non Topping - Meat
+                    </Card.Title>
+                    <Row className="mt-4">
+                        {nonmeat.map((d) => (
+                            <Col>
+                                <Form.Check
+                                    type="checkbox"
+                                    className="mx-2"
+                                    name="toppingNonMeat"
+                                    value={d.value}
+                                    label={d.label}
+                                    onChange={formik.handleChange}
+                                />
+                            </Col>
+                        ))}
+                    </Row>
+                </Card.Body>
+            </Card>
+
+            {/* Special Instrution */}
+            <Card className='my-3'>
+                <Card.Body>
+                    <Card.Title style={{ display: 'flex' }}>Special Instrution</Card.Title>
+                    <Row className='mt-3'>
+                        <div className=''>
+                            <Form.Control
+                                className=''
+                                as="textarea"
+                                placeholder="Leave a comment here"
+                                style={{ height: '100px' }}
+                            />
+                        </div>
+                    </Row>
+                </Card.Body>
+            </Card>
+
         </React.Fragment>
     )
 }
