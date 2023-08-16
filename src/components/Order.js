@@ -254,6 +254,8 @@ function Order(props) {
                             <Form.Control
                                 className=''
                                 as="textarea"
+                                onChange={formik.handleChange}
+                                {...formik.getFieldProps("specialInstruction")}
                                 placeholder="Leave a comment here"
                                 style={{ height: '100px' }}
                             />
