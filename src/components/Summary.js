@@ -3,6 +3,13 @@ import { Button, Card } from 'react-bootstrap'
 
 function Summary(props) {
   const {formik} = props;
+
+  const handlePlaceOrder = () => {
+    console.log(formik.values);
+    
+    // Diğer işlemleri burada gerçekleştirebilirsiniz
+  };
+
   return (
     <Card>
       <Card.Img variant="top" src="https://static.toiimg.com/thumb/53110049.cms?width=1200&height=900" />
@@ -12,7 +19,9 @@ function Summary(props) {
           <pre>{JSON.stringify(formik.values,null,2)}</pre>
         </Card.Text>
       </Card.Body>
-      <Button variant="danger" type='Submit' className='mt-5'>Place Order</Button>
+      <Button variant="danger" type='Submit' className='mt-5'
+      onClick={handlePlaceOrder}
+      >Place Order</Button>
     </Card>
   )
 }

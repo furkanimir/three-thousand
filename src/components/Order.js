@@ -101,7 +101,8 @@ function Order(props) {
                                     <div className="mb-3">
                                         <Form.Check
                                             type="radio"
-                                            label={d.label}
+                                            id={`${d.value}`}
+                                            label={`${d.label}`}
                                             value={d.value}
                                             name="size"
                                             onChange={formik.handleChange}
@@ -116,6 +117,18 @@ function Order(props) {
                         </Row>
                     </Form.Group>
 
+                    <hr></hr>
+                    <div>
+                        <Form>
+                            <Form.Group>
+                                <Form.Check // prettier-ignore
+                                    type="radio"
+                                    id="default"
+                                    label="default"
+                                />
+                            </Form.Group>
+                        </Form>
+                    </div>
                     <hr></hr>
 
                     <Form.Group className="py-3">
@@ -214,6 +227,7 @@ function Order(props) {
                                     type="checkbox"
                                     className="mx-2"
                                     name="toppingMeat"
+                                    id={`${d.value}`}
                                     value={d.value}
                                     label={d.label}
                                     onChange={formik.handleChange}
@@ -235,6 +249,7 @@ function Order(props) {
                                     type="checkbox"
                                     className="mx-2"
                                     name="toppingNonMeat"
+                                    id={`${d.value}`}
                                     value={d.value}
                                     label={d.label}
                                     onChange={formik.handleChange}
