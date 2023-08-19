@@ -1,5 +1,8 @@
 import Nav from 'react-bootstrap/Nav';
 import Navbar from 'react-bootstrap/Navbar';
+import { Link } from 'react-router-dom';
+
+
 
 
 function Navbarrk() {
@@ -7,7 +10,8 @@ function Navbarrk() {
     <Navbar className='px-3' style={{backgroundColor:'#32a852'}} data-bs-theme="dark">
         <Navbar.Brand href="#home">Pizza Page_Nav</Navbar.Brand>
         <Nav className="me-auto">
-          <Nav.Link style={{color:'white'}} href="#home">Home</Nav.Link>
+          <Nav.Link as={Link} style={{color:'white'}} href="/">Home</Nav.Link>
+          <Link to="/FirstPage" style={{ color: 'white' }}>First Page</Link>
         </Nav>
 
     </Navbar>
