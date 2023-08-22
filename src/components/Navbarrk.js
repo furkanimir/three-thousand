@@ -11,7 +11,7 @@ function Navbarrk() {
         <Navbar.Brand href="#home">Pizza Page_Nav</Navbar.Brand>
         <Nav className="me-auto">
           <Nav.Link as={Link} style={{color:'white'}} href="/">Home</Nav.Link>
-          <Link to="/FirstPage" style={{ color: 'white' }}>First Page</Link>
+          {/* <Link to="/FirstPage" style={{ color: 'white' }}>First Page</Link> */}
         </Nav>
 
     </Navbar>
