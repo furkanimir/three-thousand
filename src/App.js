@@ -1,6 +1,7 @@
 import React from 'react'
+import SecondPage from './pages/SecondPage'
 // import FirstPage from './pages/FirstPage'
-import PizzaPage from './pages/PizzaPage'
+// import PizzaPage from './pages/PizzaPage'
 // import KelimeKarti from './components/KelimeKarti'
 // import Kartbs from './components/Kartbs'
 
@@ -10,8 +11,8 @@ const App = () => {
     <div>
       {/* <KelimeKarti /> */}
       {/* <FirstPage/> */}
-      <PizzaPage/>
-      
+      {/* <PizzaPage/> */}
+      <SecondPage />
     </div>
   )
 }
