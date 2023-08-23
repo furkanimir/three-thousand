@@ -1,52 +1,58 @@
 import React, { useEffect, useState } from 'react'
 import { Button, Card, Container } from 'react-bootstrap'
 import Navbarrk from '../components/Navbarrk'
+import DigitalQr from '../components/Figma/DigitalQr';
 
 
 const SecondPage = () => {
 
-    const [data, setData] = useState([]);
-    const apiUrl = 'http://localhost:8080/api/v1/menus/all';
+  const [data, setData] = useState("");
+  // const [loading, setLoading] = useState(false);
+  // const apiUrl = 'http://localhost:8080/api/v1/menus/all';
 
-    useEffect(() => {
-      async function fetchData() {
-        try {
-          const response = await fetch(apiUrl);
-          if (!response.ok) {
-            throw new Error('Veri çekme hatası:', response.status);
-          }
-          const jsonData = await response.json();
-          setData(jsonData);
-          console.log(data);
-        } catch (error) {
-          console.error('Veri çekme hatası:', error);
-        }
-      }
 
-      fetchData();
-    }, []);
+  useEffect(() => {
+    fetchData();
+  }, []);
 
-    return (
-        <div>
-            <div>
-                <Navbarrk />
-            </div>
-            <Container>
+  const fetchData = async () => {
+    try {
+      const response = await fetch('http://localhost:8080/api/v1/menus/all');
+      const json = await response.json();
+      setData(json);
+      console.log(data);
+    } catch (error) {
+      console.error('Veri getirme hatasi:', error);
+    }
+  };
+
+  const handleClick = () => {
+    console.log(data);
+  }
+
+  return (
+    <div>
+      <div>
+        <Navbarrk />
+      </div>
+      <Container>
+
+        <Card>
+          <Card.Body>
+            <Card.Title style={{ display: 'flex', alignItems: 'center', justifyContent: 'center' }}>Card Title</Card.Title>
+            <Card.Text>
                 <Card>
-                    <Card.Img variant="top" src="holder.js/100px180" />
-                    <Card.Body>
-                        <Card.Title>Card Title</Card.Title>
-                        <Card.Text>
-                            {data.map(item => (
-                                <li key={item.id}>{item.header}</li>
-                            ))}
-                        </Card.Text>
-                        <Button variant="primary">Go somewhere</Button>
-                    </Card.Body>
+                  <Card.Title>Deneme</Card.Title>
+                  <Card.Text>içerisi</Card.Text>
                 </Card>
-            </Container>
-        </div>
-    )
+            </Card.Text>
+            <Button variant="primary" onClick={handleClick}>Go somewhere</Button>
+          </Card.Body>
+        </Card>
+      </Container>
+      <DigitalQr />
+    </div>
+  )
 }
 
 export default SecondPage
