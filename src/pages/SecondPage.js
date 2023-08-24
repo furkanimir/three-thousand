@@ -3,26 +3,52 @@ import { Button, Card, Col, Container, Image, Modal, Row } from 'react-bootstrap
 import Navbarrk from '../components/Navbarrk'
 import DigitalQr from '../components/Figma/DigitalQr';
 
+function ItemModal({ item, show, handleClose }) {
+ const denemeSonrayatis =(id) =>{
+  console.log(id);
+ }
+  return (
+    <Modal show={show} onHide={handleClose}>
+      <Modal.Header closeButton>
+        <Modal.Title>Item Detayi</Modal.Title>
+      </Modal.Header>
+      <Modal.Body>
+        <h5>ID: {item.id}</h5>
+        <h5>Ad: {item.name}</h5>
+        {/* Daha fazla özellik ekleyebilirsiniz */}
+      </Modal.Body>
+      <Modal.Footer>
+        <Button variant="secondary" onClick={handleClose}>
+          Kapat
+        </Button>
+        <Button variant="danger" onClick={()=>{denemeSonrayatis(item.id)}}>
+          Sil
+        </Button>
+      </Modal.Footer>
+    </Modal>
+  );
+}
 
 const SecondPage = () => {
 
   const [data, setData] = useState("");
   // const [loading, setLoading] = useState(false);
   // const apiUrl = 'http://localhost:8080/api/v1/menus/all';
+  const [showModal, setShowModal] = useState(false);
+  const [selectedItem, setSelectedItem] = useState(null);
 
-  const [show, setShow] = useState(false);
+  const handleShow = (item) => {
+    setSelectedItem(item);
+    setShowModal(true);
+  };
 
   const handleClose = () => {
-    setShow(false);
-  }
-  const handleShow = () => {
-    setShow(true);
-;
-  }
+    setShowModal(false);
+    setSelectedItem(null);
+  };
 
-  const deletedItemInfo = (id) =>{
-    console.log(id + " silme denemesi");
-  }
+
+
 
 
   useEffect(() => {
@@ -111,33 +137,8 @@ const SecondPage = () => {
                           {item.price} ₺
                         </Row>
                         <Row>
-                          {/* düzenleme */}
-                          <Col>
-                            <Button variant="primary" onClick={handleShow}>
-                              Launch demo modal
-                            </Button>
-                          </Col>
-                          {/* silme */}
-                          <Col>
-                            <Button variant="danger" onClick={handleShow}>
-                              Ürünü sil
-                            </Button>
 
-                            <Modal show={show} onHide={handleClose}>
-                              <Modal.Header closeButton>
-                                <Modal.Title>Modal heading</Modal.Title>
-                              </Modal.Header>
-                              <Modal.Body>{item.id} id'li [ {item.header} ] ürününü silmek istediğinize emin misiniz</Modal.Body>
-                              <Modal.Footer>
-                                <Button variant="secondary" onClick={handleClose}>
-                                  Close
-                                </Button>
-                                <Button variant="danger" onClick={deletedItemInfo(item.id)}>
-                                  Evet, eminim
-                                </Button>
-                              </Modal.Footer>
-                            </Modal>
-                          </Col>
+
                         </Row>
                       </Col>
                     </Row>
@@ -180,8 +181,9 @@ const SecondPage = () => {
           <Card.Body>
             <Card.Title style={{ display: 'flex', alignItems: 'center', justifyContent: 'center' }}>İçecekler</Card.Title>
             <Card.Text>
-              {icecekItems.map((item, index) => (
-                <Card key={index} className='mb-3' style={{ height: '110px' }}>
+
+              {icecekItems.map((item) => (
+                <Card key={item.id} className='mb-3' style={{ height: '110px' }}>
                   <Card.Title className='mx-2'>{item.header}</Card.Title>
                   <Card.Text className='mx-1'>
                     <Row>
@@ -199,30 +201,15 @@ const SecondPage = () => {
                         <Row>
                           {/* düzenleme */}
                           <Col>
-                            <Button variant="primary" onClick={handleShow}>
+                            {/* <Button variant="primary" onClick={handleShow}>
                               Launch demo modal
-                            </Button>
+                            </Button> */}
                           </Col>
                           {/* silme */}
                           <Col>
-                            <Button variant="danger" onClick={handleShow}>
-                              Ürünü sil
+                            <Button variant="primary" onClick={() => handleShow(item)}>
+                              Düzenle
                             </Button>
-
-                            <Modal show={show} onHide={handleClose}>
-                              <Modal.Header closeButton>
-                                <Modal.Title>Modal heading</Modal.Title>
-                              </Modal.Header>
-                              <Modal.Body>{item.id} id'li [ {item.header} ] ürününü silmek istediğinize emin misiniz</Modal.Body>
-                              <Modal.Footer>
-                                <Button variant="secondary" onClick={handleClose}>
-                                  Close
-                                </Button>
-                                <Button variant="danger" onClick={deletedItemInfo(item.id)}>
-                                  Evet, eminim
-                                </Button>
-                              </Modal.Footer>
-                            </Modal>
                           </Col>
                         </Row>
                       </Col>
@@ -231,11 +218,20 @@ const SecondPage = () => {
                   </Card.Text>
                 </Card>
               ))}
+
             </Card.Text>
           </Card.Body>
         </Card>
 
       </Container>
+
+      {selectedItem && (
+        <ItemModal
+          item={selectedItem}
+          show={showModal}
+          handleClose={handleClose}
+        />
+      )}
       <DigitalQr />
     </div>
   )
