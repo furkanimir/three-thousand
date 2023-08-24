@@ -30,6 +30,17 @@ const SecondPage = () => {
     console.log(data);
   }
 
+  //gpt 3.5
+  const values = Object.keys(data).map((key) => data[key]);
+
+  const seenTypes = [];
+
+  const kahvaltiItems = values.filter(item => item.type === "kahvalti");
+  const breakfastItems = values.filter(item => item.type === "kahvalti");
+
+
+
+
   return (
     <div>
       <div>
@@ -41,10 +52,12 @@ const SecondPage = () => {
           <Card.Body>
             <Card.Title style={{ display: 'flex', alignItems: 'center', justifyContent: 'center' }}>Card Title</Card.Title>
             <Card.Text>
-                <Card>
-                  <Card.Title>Deneme</Card.Title>
-                  <Card.Text>içerisi</Card.Text>
-                </Card>
+              {kahvaltiItems.map((item, index) => (
+                  <Card key={index}>
+                    <Card.Title>{item.header}</Card.Title>
+                    <Card.Text>{item.description}</Card.Text>
+                  </Card>
+                ))}
             </Card.Text>
             <Button variant="primary" onClick={handleClick}>Go somewhere</Button>
           </Card.Body>
