@@ -1,5 +1,6 @@
 import React from 'react'
 import SecondPage from './pages/SecondPage'
+// import Navbarrk from './components/Navbarrk'
 // import FirstPage from './pages/FirstPage'
 // import PizzaPage from './pages/PizzaPage'
 // import KelimeKarti from './components/KelimeKarti'
