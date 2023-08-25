@@ -31,7 +31,6 @@ function ItemModal({ item, show, handleClose }) {
 
 const SecondPage = () => {
 
-<<<<<<< Updated upstream
   const [data, setData] = useState("");
   // const [loading, setLoading] = useState(false);
   // const apiUrl = 'http://localhost:8080/api/v1/menus/all';
@@ -110,43 +109,6 @@ const SecondPage = () => {
                       </Col>
                     </Row>
                   </Card.Text>
-=======
-    const [data, setData] = useState('');
-    const apiUrl = 'http://localhost:8080/api/v1/menus/all';
-
-    const fetchData = async () => {
-        try {
-            const response = await fetch(apiUrl);
-            const json = await response.json();
-            setData(json.description);
-            console.log(data)
-        } catch (error) {
-            console.error('Veri getirme hatasi:', error);
-        }
-    };
-
-    useEffect(() => {
-        fetchData();
-    }, []);
-
-    return (
-        <div>
-            <div>
-                <Navbarrk />
-            </div>
-            <Container>
-                <Card>
-                    <Card.Img variant="top" src="holder.js/100px180" />
-                    <Card.Body>
-                        <Card.Title>Card Title</Card.Title>
-                        <Card.Text>
-                            {/* {data.map(item => (
-                                <li key={item.id}>{item.header}</li>
-                            ))} */}
-                        </Card.Text>
-                        <Button variant="primary">Go somewhere</Button>
-                    </Card.Body>
->>>>>>> Stashed changes
                 </Card>
               ))}
             </Card.Text>
