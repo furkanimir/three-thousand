@@ -2,32 +2,7 @@ import React, { useEffect, useState } from 'react'
 import { Button, Card, Col, Container, Image, Modal, Row } from 'react-bootstrap'
 import Navbarrk from '../components/Navbarrk'
 import DigitalQr from '../components/Figma/DigitalQr';
-
-function ItemModal({ item, show, handleClose }) {
- const denemeSonrayatis =(id) =>{
-  console.log(id);
- }
-  return (
-    <Modal show={show} onHide={handleClose}>
-      <Modal.Header closeButton>
-        <Modal.Title>Item Detayi</Modal.Title>
-      </Modal.Header>
-      <Modal.Body>
-        <h5>ID: {item.id}</h5>
-        <h5>Ad: {item.name}</h5>
-        {/* Daha fazla özellik ekleyebilirsiniz */}
-      </Modal.Body>
-      <Modal.Footer>
-        <Button variant="secondary" onClick={handleClose}>
-          Kapat
-        </Button>
-        <Button variant="danger" onClick={()=>{denemeSonrayatis(item.id)}}>
-          Sil
-        </Button>
-      </Modal.Footer>
-    </Modal>
-  );
-}
+import DeleteItemModal from '../components/DeleteItemModal';
 
 const SecondPage = () => {
 
@@ -226,7 +201,7 @@ const SecondPage = () => {
       </Container>
 
       {selectedItem && (
-        <ItemModal
+        <DeleteItemModal
           item={selectedItem}
           show={showModal}
           handleClose={handleClose}
