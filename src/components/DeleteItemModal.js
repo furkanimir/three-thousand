@@ -1,5 +1,5 @@
 import React, { useState } from 'react'
-import { Button, Modal } from 'react-bootstrap';
+import { Form, Button, Modal, Row, Col } from 'react-bootstrap';
 
 
 function DeleteItemModal({ item, show, handleClose }) {
@@ -33,14 +33,41 @@ function DeleteItemModal({ item, show, handleClose }) {
     }
   };
   return (
-    <Modal show={show} onHide={handleClose}>
+    <Modal show={show} onHide={handleClose} size="lg">
       <Modal.Header closeButton>
         <Modal.Title>Item Detayi</Modal.Title>
       </Modal.Header>
       <Modal.Body>
-        <h5>ID: {item.id}</h5>
-        <h5>Ad: {item.header}</h5>
-        {/* Daha fazla özellik ekleyebilirsiniz */}
+        <Form>
+          <Form.Group className="mb-3" controlId="exampleForm.ControlInput1">
+            <Row>
+            <Col xs={6} md={4}>
+                <Form.Label style={{ flex: 1 }}>İtem ID</Form.Label>
+                <Form.Control
+                  type="text"
+                  placeholder="{item.id}"
+                  aria-label="Disabled input example"
+                  disabled
+                  readOnly
+                  value={item.id}
+                />
+              </Col>
+              <Col xs={9} md={6}>
+                <Form.Label style={{ flex: 1, fontWeight:'bold' }}>Item Header</Form.Label>
+                <Form.Control
+                  type="text"
+                  placeholder="{item.header}"
+                  value={item.header}
+                />
+              </Col>
+            </Row>
+
+
+
+          </Form.Group>
+          <h5>Ad: {item.header}</h5>
+          {/* Daha fazla özellik ekleyebilirsiniz */}
+        </Form>
       </Modal.Body>
       <Modal.Footer>
         <Button variant="secondary" onClick={handleClose}>
