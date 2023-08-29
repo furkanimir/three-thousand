@@ -4,6 +4,12 @@ import { Form, Button, Modal, Row, Col } from 'react-bootstrap';
 
 function DeleteItemModal({ item, show, handleClose }) {
 
+  // const [id, setId] = useState(null);
+  // const [type, setType] = useState(null);
+  const [header, setHeader] = useState(item.header);
+  const [description, setDescription] = useState(item.description);
+  const [price, setPrice] = useState(item.price);
+  const [img, setImg] = useState(item.img); 
 
   const denemeSonrayatis = async (id, header) => {
     console.log(id + " : " + header);
@@ -24,7 +30,7 @@ function DeleteItemModal({ item, show, handleClose }) {
       if (response.status === 200) {
         console.log('Ürün başarıyla silindi.');
         handleClose();
-        window.location.reload();
+        // window.location.reload();
       } else {
         console.error('Ürün silinemedi. Sunucu yanıtı:', response.status);
       }
@@ -42,7 +48,7 @@ function DeleteItemModal({ item, show, handleClose }) {
       header: header,
       img: img,
       price: parseInt(price),
-      type: type
+      type: type,
     }
 
     if (!id) {
@@ -62,8 +68,11 @@ function DeleteItemModal({ item, show, handleClose }) {
 
       if (response.status === 200) {
         console.log('Ürün başarıyla güncellendi.');
+        console.log(id + ", " + header + ", " + type + ", "
+          + description.slice(0, 10) + ", "
+          + img.slice(0, 10) + ", " + price)
         handleClose(); // Modal'ı kapatmak için kullanılabilir.
-        window.location.reload(); // Sayfayı yenilemek, güncellemelerin görüntülenmesine yardımcı olabilir.
+        // window.location.reload(); // Sayfayı yenilemek, güncellemelerin görüntülenmesine yardımcı olabilir.
       } else {
         console.error('Ürün güncellenemedi. Sunucu yanıtı:', response.status);
       }
@@ -71,6 +80,7 @@ function DeleteItemModal({ item, show, handleClose }) {
       console.error('Ürün güncelleme işlemi başarısız oldu:', error);
     }
   };
+
 
   return (
     <Modal show={show} onHide={handleClose} size="lg">
@@ -97,8 +107,9 @@ function DeleteItemModal({ item, show, handleClose }) {
                   <Form.Label style={{ flex: 1, fontWeight: 'bold' }}>Item Header</Form.Label>
                   <Form.Control
                     type="text"
-                    placeholder="{item.header}"
+                    placeholder="header"
                     defaultValue={item.header}
+                    onChange={(e) => setHeader(e.target.value)}
                   />
                 </Col>
               </Row>
@@ -108,55 +119,44 @@ function DeleteItemModal({ item, show, handleClose }) {
                   <Form.Control
                     rows={4}
                     as="textarea"
-                    type="{item.description}"
+                    type="text"
                     placeholder="açıklama"
                     defaultValue={item.description}
+                    onChange={(e) => setDescription(e.target.value)}
                   />
                 </Col>
                 <Col xs={9} md={6}>
                   <Row>
                     Item type :
                     <Form.Control
-                      type="{item.type}"
+                      type="text"
                       disabled
                       readOnly
-                      placeholder="açıklama"
                       defaultValue={item.type}
                     />
                   </Row>
                   <Row xs={2} md={2}>
-                    <Col style={{flex:1}}>
-                    deneme
+                    <Col style={{ flex: 1 }}>
+                      fiyat
                     </Col>
                     <Col>
                       <Form.Control
-                        type="{item.price}"
+                        type="text"
                         placeholder="price"
                         defaultValue={item.price}
+                        onChange={(e) => setPrice(e.target.value)}
                       />
                     </Col>
                   </Row>
                 </Col>
               </Row>
               <Row className='mb-5'>
-                <Col xs={9} md={6}>
-                  Item price :
-                  <Form.Control
-                    type="{item.price}"
-                    placeholder="price"
-                    defaultValue={item.price}
-                  />
-                </Col>
-                <Col xs={9} md={6}>
-                  Item type :
-                  <Form.Control
-                    type="{item.type}"
-                    disabled
-                    readOnly
-                    placeholder="açıklama"
-                    defaultValue={item.type}
-                  />
-                </Col>
+                <Form.Control
+                  type="text"
+                  placeholder="imgURL"
+                  defaultValue={item.img}
+                  onChange={(e) => setImg(e.target.value)}
+                />
               </Row>
             </div>
 
@@ -170,7 +170,7 @@ function DeleteItemModal({ item, show, handleClose }) {
         <Button variant="secondary" onClick={handleClose}>
           Kapat
         </Button>
-        <Button variant="success" onClick={() => { updateMenuItem(item.id, item.description, item.header, item.img, item.price) }}>
+        <Button variant="success" onClick={() => { updateMenuItem(item.id, description, header, img, price, item.type) }}>
           güncelle
         </Button>
         <Button variant="danger" onClick={() => { denemeSonrayatis(item.id, item.header) }}>
